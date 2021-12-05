@@ -39,11 +39,6 @@
         </file>
 
         <file>
-            <source>src/main/resources/git.properties</source>
-            <outputDirectory>config/</outputDirectory>
-        </file>
-
-        <file>
             <source>../broker/target/wildfire-oss-gateway-${project.version}.jar</source>
             <outputDirectory>lib/</outputDirectory>
             <destName>wildfire-oss-gateway-${project.version}.jar</destName>

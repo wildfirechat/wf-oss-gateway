@@ -252,6 +252,7 @@ public class UploadFileAction extends Action {
         return true;
     }
 
+    //token已经校验，用户密钥已经取到，可以接收数据了
     public boolean beforeData() {
         String dir = ServerSetting.getRootPath() + "/" + bucketName;
 
@@ -272,7 +273,7 @@ public class UploadFileAction extends Action {
         return true;
     }
 
-    //可以在这里进行文件上传，pos为收到文件内容的偏移量，data为收到的数据，length为数据的长度， dataSize为总长度。
+    //可以在这里进行文件上传，pos为收到文件内容的偏移量，data为收到解密过的数据，length为数据的长度， dataSize为总长度。
     public void onData(long pos, byte[] data, int length) throws Exception {
         RandomAccessFile raf = null;
         try {
@@ -289,8 +290,9 @@ public class UploadFileAction extends Action {
         }
     }
 
+    //已经完成所有数据的接收，如果想要修改返回客户端的Key值，在这个函数里修改fileName即可
     public void afterData() {
-
+        
     }
 
     //解密文件内容相关
