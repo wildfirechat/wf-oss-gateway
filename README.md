@@ -50,23 +50,23 @@ media.secret_key YfQIJdgp5YGhwEw14vGpaD2HJZsuJldWtqens7i5
 ## bucket名字及Domain。至少要区分长期存储的bucket（比如头像收藏等）和可以定期清理的bucket。
 ## domain为第三方存储服务的文件路径，拼接上网关返回来的key值就可以访问到该文件。
 media.bucket_general_name media
-media.bucket_general_domain http://192.168.1.106:8884/media
+media.bucket_general_domain https://oss.thirdpart.com/media
 media.bucket_image_name media
-media.bucket_image_domain http://192.168.1.106:8884/media
+media.bucket_image_domain https://oss.thirdpart.com/media
 media.bucket_voice_name media
-media.bucket_voice_domain http://192.168.1.106:8884/media
+media.bucket_voice_domain https://oss.thirdpart.com/media
 media.bucket_video_name media
-media.bucket_video_domain http://192.168.1.106:8884/media
+media.bucket_video_domain https://oss.thirdpart.com/media
 media.bucket_file_name media
-media.bucket_file_domain http://192.168.1.106:8884/media
+media.bucket_file_domain https://oss.thirdpart.com/media
 media.bucket_sticker_name media
-media.bucket_sticker_domain http://192.168.1.106:8884/media
+media.bucket_sticker_domain https://oss.thirdpart.com/media
 media.bucket_moments_name media
-media.bucket_moments_domain http://192.168.1.106:8884/media
+media.bucket_moments_domain https://oss.thirdpart.com/media
 media.bucket_portrait_name static
-media.bucket_portrait_domain http://192.168.1.106:8884/static
+media.bucket_portrait_domain https://oss.thirdpart.com/static
 media.bucket_favorite_name static
-media.bucket_favorite_domain http://192.168.1.106:8884/static
+media.bucket_favorite_domain https://oss.thirdpart.com/static
 ```
 
 网关服务配置
@@ -105,14 +105,16 @@ public void afterData();
 对接是客户的责任，在对接之前，如果能够正确保存为文件，就说明野火的处理流程没有问题，后续的对接就需要客户自己来处理来。对接时建议仅修改这3个函数，另外添加部分成员变量。
 
 ## IDEA中运行
-``` io.moquette.server.Server```为服务入口，另外需要配置工作目录为broker目录，这样才可以正确的找到路径进行代码调试。
+```io.moquette.server.Server```为服务入口，另外需要配置工作目录为broker目录，这样才可以正确的找到路径进行代码调试。
 
 ## 编译
 在安装JDK1.8以上及maven的前提下，在命令行中执行```mvn clean package```，生成的目标文件在```./distribution/target/distribution-xxxx-bundle-tar.tar.gz```
-> 由于使用了一个git的maven插件，如果本地没有git信息就会编译出错，请使用```git clone```的方法下载代码，或者下载压缩包解压后在根目录创建```.git```的空目录。建议用```git clone```的方式下载代码。
 
 ## 运行
 解压编译后的压缩包，修改config目录下的配置，注意配置要与IM服务的内容保持一致。在bin目录下执行
 ```
 sh ./wildfirehcat.sh
 ```
+
+## 安全
+上传时是经过AES加密的是安全的，下载时也需要提高安全性。可以第三方对象存储服务支持HTTPS下载，IM服务配置中的domain配置为HTTPS地址。另外第三方对象存储服务如果有权限控制机制，也请启动权限控制。
