@@ -53,6 +53,7 @@ public class UploadFileAction extends Action {
     @Override
     public boolean action(Request r, Response response) {
         if (r.getNettyRequest() instanceof FullHttpRequest) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
 
             FullHttpRequest request = (FullHttpRequest) r.getNettyRequest();
             String requestId = UUID.randomUUID().toString().replace("-", "");
