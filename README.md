@@ -7,7 +7,7 @@
 
 ## 工作流程
 ### 上传流程
-![oss-gateway_upload](http://media.wfcoss.cn/firechat/oss_gateway_upload.png)
+![oss-gateway_upload](./asserts/oss_gateway_upload.png)
 
 如图，客户有自己的文件存储服务，可以是常见的FastDFS或HDFS或其他任意私有对象存储或者云存储，后面简称第三方存储服务。部署野火对象存储网关（OSS Gateway）和野火IM服务（IM Server），客户端（Client）来上传文件。上传经过如下步骤：
 1. 客户端先请求IM服务分配上传token。
@@ -27,7 +27,7 @@
 5. 网关在上传成功之后需要给客户端一个响应，响应中有对文件的Key值。客户端使用该Key值和IM服务配置的bucket_domain拼接成最后的链接。
 
 ### 下载流程
-![oss-gateway_download](http://media.wfcoss.cn/firechat/oss_gateway_download.png)
+![oss-gateway_download](./asserts/oss_gateway_download.png)
 
 下载比较简单，客户端直接从第三方存储服务下载文件。链接是网关返回给客户端的Key值和IM服务配置中对应bucket的domain值拼接而成，需要确保该链接能够正确的访问到该文件。
 
